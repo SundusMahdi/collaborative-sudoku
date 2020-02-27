@@ -6,11 +6,11 @@ body {
 }
 
 table {
+    margin: auto;
+    margin-top: 35px;
+    margin-bottom: 35px;
 	text-align: center;
-	width: 80%;
-	height: 80%;
 	padding: 5px;
-	background-color: cornflowerblue;
 }
 
 td.divider {

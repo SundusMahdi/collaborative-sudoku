@@ -1,7 +1,22 @@
 <?php
-
 include 'dbconn.php';
+?>
+<!-- link Bootstrap 4 and css file -->
+<head>
+    <title>Collaborative Soduko</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+</head>
 
+<body class="bg-dark">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<?php
 $newReset = $_GET["reset"];
 $roomName = $_GET["roomName"];
 $puzzleDif = $_GET["difficulty"];
@@ -64,19 +79,28 @@ else if ($puzzle){
 <script>
 	oldPuzzle = <?php echo "'".$puzzle."'"; ?>;
 </script>
-
-<form class="reset" method=GET action=<?php echo $_SERVER['PHP_SELF']; ?> >
-	<?php ?>
-	<hr>
-	<h2>Reset room:</h2>
-	Select new difficulty:
-	<input type="radio" name="difficulty" value="e">Easy
-	<input type="radio" name="difficulty" value="m" checked>Medium
-	<input type="radio" name="difficulty" value="h">Hard<br><br>
-	<input type="hidden" name="reset" value=<?php echo $newReset+1 ?>>
-	<input type="hidden" name="roomName" value="<?php echo $roomName; ?>">
-	<input class="btn btn-primary" type="submit">
+    
+<form class="start bg-light text-dark p-3 rounded-lg" class="reset" method=GET action=<?php echo $_SERVER['PHP_SELF']; ?>>
+    <h2>Reset room:</h2>
+    <h4>Select new difficulty: </h4>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-dark">
+            <input type="radio" name="difficulty" id="option1" value="e"> Easy
+        </label>
+        <label class="btn btn-dark active">
+            <input type="radio" name="difficulty" id="option2" value="m" checked> Medium
+        </label>
+        <label class="btn btn-dark">
+            <input type="radio" name="difficulty" id="option3" value="h"> Hard
+        </label>
+    </div>
+    <input type="hidden" name="reset" value=<?php echo $newReset+1 ?>><br>
+    <input type="hidden" name="roomName" value="<?php echo $roomName; ?>">
+    <input class="btn btn-dark mt-4 " type="submit">
 </form>
+    
+</div>
+</body>
 
 	
 <?php
@@ -215,6 +239,7 @@ function createSudoku($diff){
 
 // Print out Sudoku in a HTML table
 function displayPuzzle($puzzle){
+    echo "<div class='container bg-dark'>";
 	echo "<table>";
 	for($h=0; $h<9; $h++){
 		// if 3rd or 6th row print seperator
