@@ -1,9 +1,11 @@
 <?php
 include 'dbconn.php';
 ?>
-<!-- link Bootstrap 4 and css file -->
+
 <head>
     <title>Collaborative Soduko</title>
+    
+    <!-- link Bootstrap 4 and css file -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -105,39 +107,6 @@ else if ($puzzle){
 	
 <?php
 //TODO: make a real sudoku generator
-//$puzzle = array(array(),array(),array(),array(),
-//		array(),array(),array(),array(),array());
-//for ($i=0; $i<9; $i++) {
-//	$digits = array(1,2,3,4,5,6,7,8,9);
-//	while($digits){
-//		$col = 9-count($digits);
-//		$row = $i;
-//		$digits2 = $digits;
-//		$used = array();
-//		while($row%3>0){
-//			$row-=1;
-//			$col1 = floor($col/3)*3;
-//			$col2 = floor($col/3)*3+1;
-//			$col3 = floor($col/3)*3+2;
-//			array_push($used, $puzzle[$row][$col1]); 
-//			array_push($used, $puzzle[$row][$col2]);  
-//			array_push($used, $puzzle[$row][$col3]); 	
-//		}
-//		while($row>0){
-//			$row-=1;
-//			array_push($used, $puzzle[$row][$col]);
-//		}
-//		$digits2 = array_diff($digits2, $used);
-//        echo $digits2."<br>";
-//		if (count($digits)<=0){
-//			echo "puzzle impossible";
-//			break;
-//		}
-//		$randIndex = array_rand($digits2);
-//		array_push($puzzle[$i], $digits2[$randIndex]);
-//		$digits = array_diff($digits, array($digits2[$randIndex]));
-//	}
-//}
 
 // createSudoku generates the sudoku puzzle.
 //	Args:
@@ -210,8 +179,7 @@ function createSudoku($diff){
 					$puzzle[$i][$j] = 0;
 				}
 			}
-		}
-		
+		}		
 	}elseif($diff == 'h'or $diff == 'hard'){
 		for ($i=0; $i<9; $i++) {
 			for ($j=0; $j<9; $j++) {
@@ -234,7 +202,6 @@ function createSudoku($diff){
 	}
 	$pStr = implode("", $p1);
 	return $pStr;
-	
 }
 
 // Print out Sudoku in a HTML table
@@ -286,13 +253,13 @@ function displayPuzzle($puzzle){
 }
 
 ?>
-
 <script>
-// uses ajax to send new puzzle data to database
+// storeVal: uses ajax to send new puzzle data to database
 // gets called when input field detects change
-// index = index to be modified
-// puzzle = the global puzzle variable, oldPuzzle
 // sets value of modified field to 1-9 or ""
+//  Args:
+//      index = index to be modified
+//      puzzle = the global puzzle variable, oldPuzzle
 function storeVal(index, puzzle) {
 	id = "index"+index;
 	//alert("storing value: "+puzzle+"at index: "+index);
@@ -309,10 +276,9 @@ function storeVal(index, puzzle) {
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("index="+id+"&value="+document.getElementById(id).value+
 			   "&puzzle="+puzzle+"&roomName="+"<?php echo $roomName ?>");
-	
 }
 	
-// obtains most recent puzzle data newP from database with ajax
+// getVal: obtains most recent puzzle data newP from database with ajax
 // compares global variable oldPuzzle to newP
 // updates only the new values found
 // updates oldPuzzle to new puzzle data
